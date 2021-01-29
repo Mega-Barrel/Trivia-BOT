@@ -1,0 +1,5 @@
+{
+    "User_add": "Add Member Points. Command: `++thank <username> <message(optional)>`\n",
+    "User_remove": "Remove Member Points. Command: `++remove <username> <message>`\n",
+    "Leaderboard": "View Leaderboard. Command: `++lb`\n"
+}
