@@ -6,10 +6,8 @@ import os, dotenv
 from datetime import datetime
 from discord.ext import commands
 
-from prettytable import PrettyTable
-from prettytable import from_db_cursor
 
-bot = commands.Bot(command_prefix="++")
+bot = commands.Bot(command_prefix="!")
 
 dotenv.load_dotenv('.env')
 TOKEN = os.environ.get("DISCORD_BOT_SECRET")
@@ -38,9 +36,28 @@ async def help(ctx):
         timestamp = datetime.utcnow(),
         description = "Trivia BOT for quizzes!"
     )
+
+    embed.add_field(name = "1. Quiz", value = config['quiz'], inline = False)
+    embed.add_field(name = "2. Leaderboard", value = config['Leaderboard'], inline = False)
     
-    embed.set_footer(text = 'Bot Made By Saurabh')
+    # embed.set_footer(text = 'Bot Made By #66daysofdata Team')
     embed.set_footer(text="Command invoked by {}".format(ctx.message.author.name))
     await ctx.send(embed = embed)
+
+@bot.command()
+async def poll(ctx, question, option1=None, option2=None):
+    if option1 is not None and option2 is not None:
+        # await ctx.channel.purge(limit=1)
+        print('printing')
+
+        message = await ctx.send(f"```New Question: \n{question}\n A. {option1}\n B. {option2}```\n")
+        
+        await message.add_reaction('🅰')
+        await message.add_reaction('🅱')
+        await message.add_reaction('C')
+        await message.add_reaction('D')
+
+        await message.add_reaction('🤷🏼‍♂️')
+
 
 bot.run(TOKEN)
